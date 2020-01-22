@@ -5,10 +5,10 @@ import NamePicker from './namePicker'
 
 function App() {
   const [messages, setMessages] = useState([])
-
+  const [name, setName] = useState('')
   return <main>
 
-    <header> 
+    <header>
       <div className="logo-wrap">
         <img className="logo"
           alt="logo"
@@ -16,7 +16,7 @@ function App() {
         />
         Chatter
       </div>
-      <NamePicker onSave={name=>{}} />
+      <NamePicker onSave={setName} />
     </header>
 
     <div className="messages">
