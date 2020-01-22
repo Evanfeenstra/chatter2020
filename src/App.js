@@ -1,24 +1,28 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import './App.css'
+import {db} from './db'
+import NamePicker from './namePicker'
 
 function App() {
   const [messages, setMessages] = useState([])
-  
-  console.log(messages)
+
   return <main>
 
     <header> 
-      <img className="logo"
-        alt="logo"
-        src="https://images.coollogo.com/images/prism-large-green.png" 
-      />
-      Chatter
+      <div className="logo-wrap">
+        <img className="logo"
+          alt="logo"
+          src="https://images.coollogo.com/images/prism-large-green.png" 
+        />
+        Chatter
+      </div>
+      <NamePicker onSave={name=>{}} />
     </header>
 
     <div className="messages">
       {messages.map((m,i)=>{
         return <div key={i} className="message-wrap">
-          <div className="message">{m}</div>
+          <div className="message">{m.text}</div>
         </div>
       })}
     </div>
@@ -58,3 +62,20 @@ function TextInput(props){
 }
 
 export default App
+
+
+/*
+
+useEffect(()=>{
+    db.listen({
+      receive: m=> {
+        setMessages(current=> [m, ...current])
+      },
+      remove: id=> {
+        setMessages(current=> [...current].filter(m => m.id !== id))
+      },
+    })
+  },[])
+
+
+*/

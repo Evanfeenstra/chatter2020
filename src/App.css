@@ -34,11 +34,16 @@ header{
 
   display:flex;
   align-items:center;
+  justify-content: space-between;
 }
 
 .logo {
   height:24px;
   margin-right:10px;
+}
+.logo-wrap{
+  display: flex;
+  align-items: center;
 }
 
 .text-input-wrap{
@@ -55,37 +60,40 @@ header{
   border:1px solid black;
   width:100%;
   border-radius:15px;
-  padding:0 5px;
+  font-size:13px;
+  padding:0 11px;
   position:absolute;
   left:4px;
   top:4px;
   height:32px;
   outline:none;
+  width: calc(100% - 8px);
 }
 .text-input:focus{
   border: 1px solid blue;
-  background: rgba(0,0,255,0.04);
+  background: rgb(240,240,255);
 }
 .button:hover{
-  background:blue;
+  background:rgba(50,50,155,0.9);
   color:white;
 }
 .button:focus{
   outline: none;
-  border:1px solid blue;
+  border:1px solid rgba(200,200,255,0.9);
 }
 .button:disabled{
   color:white;
-  background:grey;
+  background:rgb(175, 175, 175);
 }
 
 .button{
   cursor:pointer;
   position:absolute;
-  right:4px;
+  right:8px;
   top:8px;
   height:24px;
   border-radius:15px;
+  border: 1px solid grey;
 }
 
 .messages{
@@ -110,3 +118,40 @@ header{
   display: inline-block;
 }
 
+
+.edit-username{
+  display: flex;
+  align-items: center;
+}
+.name-button{
+  height:29px;
+  margin:0 6px;
+  background:transparent;
+  color:white;
+  font-size:18px;
+  padding:4px;
+  cursor: pointer;
+  border:none;
+  outline:none;
+  border-radius: 4px;
+}
+.name-button:hover{
+  background:rgba(255,255,255,0.1)
+}
+.name-input{
+  color:white;
+  height:31px;
+  border:1px solid white;
+  border-radius:14px;
+  padding-left:12px;
+  background:#1f1e2e;
+  padding-bottom:2px;
+  font-size:12px;
+  outline:none;
+}
+.username{
+  display: flex;
+  align-items: center;
+  margin-right:12px;
+  font-size:1.1rem;
+}
