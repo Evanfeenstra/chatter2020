@@ -25,7 +25,8 @@ function App() {
       {messages.map((m,i)=>{
         return <div key={i} className="message-wrap">
           <div className="message">
-            {m.text}
+            <div className="msg-name">{m.name}</div>
+            <div className="msg-text">{m.text}</div>
           </div>
         </div>
       })}
