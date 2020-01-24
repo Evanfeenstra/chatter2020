@@ -2,8 +2,19 @@ import React, {useState, useEffect} from 'react'
 import './App.css'
 import {db, useDB} from './db'
 import NamePicker from './namePicker'
+import { BrowserRouter, Route } from 'react-router-dom'
 
-function App() {
+function App(){
+  useEffect(()=>{
+    const {pathname} = window.location
+    if(pathname.length<2) window.location.pathname='home'
+  }, [])
+  return <BrowserRouter>
+    <Route path="/:room" component={Room}/>
+  </BrowserRouter>
+}
+
+function Room() {
   
   const [name, setName] = useState('')
   const messages = useDB()
