@@ -23,7 +23,8 @@ function App() {
 
     <div className="messages">
       {messages.map((m,i)=>{
-        return <div key={i} className="message-wrap">
+        return <div key={i} className="message-wrap"
+          from={m.name===name?'me':'you'}>
           <div className="message">
             <div className="msg-name">{m.name}</div>
             <div className="msg-text">{m.text}</div>

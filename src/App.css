@@ -108,7 +108,13 @@ header{
 }
 .message-wrap{
   width:100%;
+  display:flex;
+  justify-content: flex-start;
 }
+.message-wrap[from="me"]{
+  justify-content: flex-end;
+}
+
 .message{
   position: relative;
   margin-top:10px;

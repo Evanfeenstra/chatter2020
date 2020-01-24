@@ -21,7 +21,9 @@ function NamePicker(props) {
     const n = localStorage.getItem('name')
     if(n) {
       setName(n)
-      save() 
+      setTimeout(()=>{
+        save()
+      },50)
     }
   }, [])
 
