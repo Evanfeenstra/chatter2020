@@ -10,14 +10,14 @@ function App(){
     if(pathname.length<2) window.location.pathname='home'
   }, [])
   return <BrowserRouter>
-    <Route path="/:room" component={Room}/>
+    <Route path="/:room" component={Room} />
   </BrowserRouter>
 }
 
-function Room() {
-  
+function Room(props) {
+  const {room} = props.match.params
   const [name, setName] = useState('')
-  const messages = useDB()
+  const messages = useDB(room)
 
   return <main>
 
@@ -46,7 +46,7 @@ function Room() {
 
     <TextInput onSend={(text)=> {
       db.send({
-        text, name, ts: new Date()
+        text, name, ts: new Date(), room
       })
     }} />
     
@@ -81,24 +81,3 @@ function TextInput(props){
 
 export default App
 
-/*
-import { BrowserRouter, Route } from "react-router-dom";
-
-function App() {
-  useEffect(()=>{
-    const {pathname} = window.location
-    if(pathname.length<2){
-      window.location.pathname = Math.random().toString(36).slice(7)
-    }
-  },[])
-  return (<BrowserRouter>
-    <Route path="/:room" component={Content} />
-  </BrowserRouter>)
-}
-
-*/
-
-
-
-
-// const {room} = props.match.params

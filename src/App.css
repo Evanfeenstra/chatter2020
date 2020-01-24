@@ -104,7 +104,7 @@ header{
   left:0px;
   display:flex;
   flex-direction: column-reverse;
-  overflow-y:scroll;
+  overflow-y:auto;
 }
 .message-wrap{
   width:100%;

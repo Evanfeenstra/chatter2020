@@ -22,7 +22,7 @@ function useDB(room) {
     
     useEffect(() => {
         store.collection(coll)
-        // .where('room','==',room)
+        .where('room','==',room)
         .onSnapshot(snap=> snap.docChanges().forEach(c=> {
             const {doc, type} = c
             if (type==='added') add({...doc.data(),id:doc.id})
@@ -43,10 +43,13 @@ db.delete = function(id) {
 export { db, useDB }
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDe5hejNin_uspcktTCkhfQAhbWMIARuy0",
-    authDomain: "chatterrrrrrr.firebaseapp.com",
-    projectId: "chatterrrrrrr",
-    storageBucket: "chatterrrrrrr.appspot.com",
+    apiKey: "AIzaSyDWXVgUqm3xATyzqUqTxcpvsW7U804ctXI",
+    authDomain: "chatter20202020.firebaseapp.com",
+    databaseURL: "https://chatter20202020.firebaseio.com",
+    projectId: "chatter20202020",
+    storageBucket: "chatter20202020.appspot.com",
+    messagingSenderId: "630230183323",
+    appId: "1:630230183323:web:cc967f51fc79e394ca053e"
 }
 
 firebase.initializeApp(firebaseConfig)
