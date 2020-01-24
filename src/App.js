@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import './App.css'
-import {db} from './db'
+import {db, useDB} from './db'
 import NamePicker from './namePicker'
 
 function App() {
-  const [messages, setMessages] = useState([])
+  
   const [name, setName] = useState('')
+  const messages = useDB()
+
   return <main>
 
     <header>
@@ -22,18 +24,21 @@ function App() {
     <div className="messages">
       {messages.map((m,i)=>{
         return <div key={i} className="message-wrap">
-          <div className="message">{m.text}</div>
+          <div className="message">
+            {m.text}
+          </div>
         </div>
       })}
     </div>
 
     <TextInput onSend={(text)=> {
-      setMessages([text, ...messages])
+      db.send({
+        text, name, ts: new Date()
+      })
     }} />
     
   </main>
 }
-
 
 function TextInput(props){
   var [text, setText] = useState('') 
@@ -63,19 +68,24 @@ function TextInput(props){
 
 export default App
 
-
 /*
+import { BrowserRouter, Route } from "react-router-dom";
 
-useEffect(()=>{
-    db.listen({
-      receive: m=> {
-        setMessages(current=> [m, ...current])
-      },
-      remove: id=> {
-        setMessages(current=> [...current].filter(m => m.id !== id))
-      },
-    })
+function App() {
+  useEffect(()=>{
+    const {pathname} = window.location
+    if(pathname.length<2){
+      window.location.pathname = Math.random().toString(36).slice(7)
+    }
   },[])
-
+  return (<BrowserRouter>
+    <Route path="/:room" component={Content} />
+  </BrowserRouter>)
+}
 
 */
+
+
+
+
+// const {room} = props.match.params
