@@ -3,6 +3,10 @@ import './App.css'
 import {db, useDB} from './db'
 import NamePicker from './namePicker'
 import { BrowserRouter, Route } from 'react-router-dom'
+import Camera from 'react-snap-pic'
+import {FiCamera} from 'react-icons/fi'
+import * as firebase from "firebase/app"
+import "firebase/storage"
 
 function App(){
   useEffect(()=>{
@@ -17,9 +21,21 @@ function App(){
 function Room(props) {
   const {room} = props.match.params
   const [name, setName] = useState('')
+  const [showCamera, setShowCamera] = useState(false)
   const messages = useDB(room)
 
+  async function takePicture(img) {
+    setShowCamera(false)
+    const imgID = Math.random().toString(36).substring(7)
+    var storageRef = firebase.storage().ref()
+    var ref = storageRef.child(imgID + '.jpg')
+    await ref.putString(img, 'data_url')
+    db.send({ img: imgID, name, ts: new Date(), room })
+  }
+
   return <main>
+
+    {showCamera && <Camera takePicture={takePicture} />}
 
     <header>
       <div className="logo-wrap">
@@ -35,7 +51,8 @@ function Room(props) {
     <div className="messages">
       {messages.map((m,i)=>{
         return <div key={i} className="message-wrap"
-          from={m.name===name?'me':'you'}>
+          from={m.name===name?'me':'you'}
+          onClick={()=>console.log(m)}>
           <div className="message">
             <div className="msg-name">{m.name}</div>
             <div className="msg-text">{m.text}</div>
@@ -45,18 +62,28 @@ function Room(props) {
     </div>
 
     <TextInput onSend={(text)=> {
-      db.send({
-        text, name, ts: new Date(), room
-      })
-    }} />
+        db.send({
+          text, name, ts: new Date(), room
+        })
+      }}
+      showCamera={()=>setShowCamera(true)}
+    />
     
   </main>
 }
 
+const bucket = 'https://firebasestorage.googleapis.com/v0/b/chatter20202020.appspot.com/o/'
+const suffix = '.jpg?alt=media'
+
 function TextInput(props){
   var [text, setText] = useState('') 
+
   // normal js comment
   return <div className="text-input-wrap">
+    <button onClick={props.showCamera}
+      style={{position:'absolute', left:2, top:10}}>
+      <FiCamera style={{height:15, width:15}} />
+    </button>
     <input 
       value={text} 
       className="text-input"

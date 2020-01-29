@@ -1,3 +1,25 @@
+notes 1/28
+
+Div100vh
+
+.messages use % calc instead of vh
+
+background color on body
+
+font-size 16 on input (dont zoom then)
+
+add the #root up there
+
+
+CAMERA:
+set storage.rules to always allow
+button in TextInput
+send func
+
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
