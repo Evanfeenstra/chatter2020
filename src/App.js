@@ -18,6 +18,7 @@ function App(){
   </BrowserRouter>
 }
 
+
 function Room(props) {
   const {room} = props.match.params
   const [name, setName] = useState('')
@@ -30,7 +31,9 @@ function Room(props) {
     var storageRef = firebase.storage().ref()
     var ref = storageRef.child(imgID + '.jpg')
     await ref.putString(img, 'data_url')
-    db.send({ img: imgID, name, ts: new Date(), room })
+    db.send({ 
+      img: imgID, name, ts: new Date(), room 
+    })
   }
 
   return <main>
@@ -49,24 +52,18 @@ function Room(props) {
     </header>
 
     <div className="messages">
-      {messages.map((m,i)=>{
-        return <div key={i} className="message-wrap"
-          from={m.name===name?'me':'you'}
-          onClick={()=>console.log(m)}>
-          <div className="message">
-            <div className="msg-name">{m.name}</div>
-            <div className="msg-text">{m.text}</div>
-          </div>
-        </div>
-      })}
+      {messages.map((m,i)=> <Message key={i} 
+        m={m} name={name} 
+      />)}
     </div>
 
-    <TextInput onSend={(text)=> {
+    <TextInput 
+      showCamera={()=>setShowCamera(true)}
+      onSend={(text)=> {
         db.send({
           text, name, ts: new Date(), room
         })
-      }}
-      showCamera={()=>setShowCamera(true)}
+      }} 
     />
     
   </main>
@@ -74,6 +71,22 @@ function Room(props) {
 
 const bucket = 'https://firebasestorage.googleapis.com/v0/b/chatter20202020.appspot.com/o/'
 const suffix = '.jpg?alt=media'
+
+function Message({m, name}){
+  return <div className="message-wrap"
+    from={m.name===name?'me':'you'}
+    onClick={()=>console.log(m)}>
+    <div className="message">
+      <div className="msg-name">{m.name}</div>
+      <div className="msg-text">
+        {m.text}
+        {m.img && <img src={bucket + m.img + suffix} alt="pic" />}
+      </div>
+    </div>
+  </div>
+}
+
+
 
 function TextInput(props){
   var [text, setText] = useState('') 
